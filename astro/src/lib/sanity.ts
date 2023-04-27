@@ -16,5 +16,7 @@ export async function getProjects() {
     }
   } | order(order asc)`;
   const projects = await useSanityClient().fetch(query);
-  return projects.map((project: Project) => project);
+  return projects
+    .map((project: Project) => project)
+    .sort((a: Project, b: Project) => a.order - b.order);
 }

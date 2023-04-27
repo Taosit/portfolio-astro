@@ -34,15 +34,18 @@ function ProjectCard(props: Project) {
       currentVideo = document.querySelector(
         `.${styles[toCamalCase(props.name)]} video`
       ) as HTMLVideoElement;
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        currentVideo.autoplay = true;
+      }
     }
     const videoIndex = props.videos.findIndex((video) => video.name === name);
     if (videoIndex === -1) return;
     setCurrentVideoIndex(videoIndex);
     currentVideo.src = props.videos[currentVideoIndex()].url;
-    currentVideo.currentTime = 0;
     currentVideo
       ?.play()
       .then(() => {
+        currentVideo!.currentTime = 0;
         setIsVideoPlaying(true);
       })
       .catch((err) => {
@@ -89,6 +92,10 @@ function ProjectCard(props: Project) {
           <video
             class={currentVideoIndex() >= 0 ? styles.projectVideo : "hidden"}
             muted={true}
+            onPause={() => {
+              setIsVideoPlaying(false);
+              setShowPauseButton(false);
+            }}
             onEnded={() => {
               setCurrentVideoIndex(-1);
               setIsVideoPlaying(false);
@@ -125,8 +132,6 @@ function ProjectCard(props: Project) {
               alt="pause button"
               onClick={() => {
                 currentVideo?.pause();
-                setIsVideoPlaying(false);
-                setShowPauseButton(false);
               }}
             />
           </Show>
