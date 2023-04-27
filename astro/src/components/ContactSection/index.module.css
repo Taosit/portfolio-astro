@@ -1,0 +1,316 @@
+.contactPage {
+  background-color: var(--dark-gray);
+  box-shadow: 0 0 0 100vmax var(--dark-gray);
+  clip-path: inset(0 -100vmax);
+}
+
+.contactCard {
+  position: relative;
+  width: calc(100% - 2em);
+  margin: 3.6em auto;
+  height: min(60vh, 520px);
+  padding: 2.5em 2em;
+  border-radius: 1.2em;
+  background: linear-gradient(145.46deg, #524e47 14.83%, #37332c 84.35%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contactCard::before {
+  content: "";
+  position: absolute;
+  inset: -0.6em;
+  border-radius: 2em;
+  padding: 0.6em;
+  background: linear-gradient(
+    118.02deg,
+    #d9d9d9 40%,
+    #3e3a33 41.5%,
+    #3e3a33 50%,
+    #3e3a33 58.5%,
+    #d9d9d9 60%
+  );
+  background-size: 500%;
+  background-position: center;
+  transition: 0.3s;
+  z-index: -1;
+}
+
+.contactCard:has(button:active)::before {
+  animation: animate-background 1s;
+}
+
+@keyframes animate-background {
+  0% {
+    background-size: 500%;
+  }
+  50% {
+    background-size: 100%;
+  }
+  100% {
+    background-size: 500%;
+  }
+}
+
+.contactInputGroup {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contactInputGroup label {
+  color: white;
+}
+
+.contactInputGroup input {
+  font-size: medium;
+  border: none;
+  border-radius: 0.3em;
+  padding: 0.1em 0.25em;
+}
+
+.textarea {
+  width: 100%;
+  height: 16vh;
+  font-size: 1em;
+  resize: none;
+  border-radius: 0.3em;
+  padding: 0.1em 0.25em;
+}
+
+.errorMessageContainer {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 0.1em 0.5em;
+  margin-top: 0.3em;
+  height: 16px;
+}
+
+.opacityZero {
+  opacity: 0;
+}
+
+.errorMessage {
+  color: darkred;
+  font-size: 14px;
+}
+
+.sendButton {
+  width: 100%;
+  height: 1.5em;
+  font-size: 20px;
+  border-radius: 0.2em;
+  color: white;
+  background-color: var(--dark-gray);
+  border: 2px solid white;
+  cursor: pointer;
+  margin-top: 0.3em;
+}
+
+.sendButton:disabled {
+  cursor: auto;
+  opacity: 0.6;
+}
+
+.loader {
+  position: absolute;
+  right: 12%;
+  top: 50%;
+  translate: 0 -50%;
+  border: 2px solid #cdcdcd23;
+  border-top: 2px solid #cdcdcd;
+  border-radius: 50%;
+  height: 50%;
+  aspect-ratio: 1 / 1;
+  animation: spin 2s linear infinite;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.show {
+  opacity: 1;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.messageStatusContainer {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  bottom: 100px;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  background-color: rgba(255, 255, 255);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fade-out 0.5s ease-in-out 2s forwards;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.successText {
+  color: rgb(5, 86, 5);
+}
+
+.failureText {
+  color: rgb(158, 0, 0);
+}
+
+.topStarContainer {
+  position: absolute;
+  width: 15vmax;
+  top: 10vh;
+  right: -2vw;
+  aspect-ratio: 1 / 1;
+  z-index: -2;
+}
+
+.bottomStarContainer {
+  position: absolute;
+  width: 6vmax;
+  bottom: 8vh;
+  left: -2vw;
+  aspect-ratio: 1 / 1;
+  z-index: -2;
+}
+
+.greenStar {
+  --star-color: #c9f5ab;
+  --pos-top: 0;
+  --pos-left: 90%;
+  --star-width: 10px;
+  --animation-delay: 0s;
+}
+
+.blueStar {
+  --star-color: #abe3f5;
+  --pos-top: 30%;
+  --pos-left: 50%;
+  --star-width: 5px;
+  --animation-delay: 2.5s;
+}
+
+.orangeStar {
+  --star-color: #f5dbab;
+  --pos-top: 100%;
+  --pos-left: 85%;
+  --star-width: 8px;
+  --animation-delay: 1.5s;
+}
+
+.purpleStar {
+  --star-color: #9d57a4;
+  --pos-top: 0;
+  --pos-left: 0;
+  --star-width: 4px;
+  --animation-delay: 0.5s;
+}
+
+.yellowStar {
+  --star-color: #e1f5ab;
+  --pos-top: 100%;
+  --pos-left: 100%;
+  --star-width: 6px;
+  --animation-delay: 3s;
+}
+
+.star {
+  position: absolute;
+  width: var(--star-width);
+  aspect-ratio: 1 / 1;
+  top: var(--pos-top);
+  left: var(--pos-left);
+  background: var(--star-color);
+  box-shadow: 0px 0px 20px 5px var(--star-color);
+  filter: blur(5px);
+  animation: move-star 4s infinite backwards var(--animation-delay);
+}
+
+@keyframes move-star {
+  0% {
+    scale: 0.7;
+    opacity: 0.6;
+  }
+  20% {
+    scale: 1;
+    opacity: 0.8;
+  }
+  50% {
+    scale: 0.7;
+    opacity: 0.6;
+  }
+  100% {
+    scale: 0.7;
+    opacity: 0.6;
+  }
+}
+
+.treesContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  translate: 5vw;
+  width: 70%;
+  z-index: -2;
+}
+
+@media (min-width: 768px) {
+  .contactCard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+    height: auto;
+    position: absolute;
+    top: 30vh;
+  }
+  .contactCard > *:not(:has(input)) {
+    grid-column: span 2;
+  }
+  .contactCard > *:has(textarea) {
+    margin-top: 1em;
+  }
+  .treesContainer {
+    width: 70%;
+    translate: 10vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contactCard {
+    position: relative;
+    top: 0;
+    width: 80%;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  html {
+    scroll-behavior: auto;
+  }
+  .contactCard:has(button:active)::before {
+    animation: none;
+  }
+  .star {
+    animation: none;
+  }
+}

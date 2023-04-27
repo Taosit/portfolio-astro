@@ -1,0 +1,4 @@
+[build]
+    command = "npm run --prefix ./B build"
+    publish = "astro/dist/"
+    functions = "serverless/"

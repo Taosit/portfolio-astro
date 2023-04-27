@@ -1,0 +1,236 @@
+---
+import { getProjects } from "../lib/sanity";
+import Stationary from "../assets/stationary.svg";
+import Airplane from "../assets/airplane.svg";
+import { Projects } from "./Projects";
+
+const projects = await getProjects();
+---
+
+<section class="project-page-container" id="projects">
+  <div class="h2-container">
+    <h2>My Projects</h2>
+    <div class="h2-icon">
+      <img src={Stationary} alt="" />
+    </div>
+  </div>
+  <div class="project-image-container">
+    <div class="clouds">
+      <div class="big-cloud"></div>
+      <div class="small-cloud"></div>
+    </div>
+    <div class="airplane-container">
+      <img src={Airplane} alt="airplane" />
+    </div>
+  </div>
+  <div class="project-intro-container">
+    <div class="intro">
+      <p>
+        I love building projects. I jump from one project to another while
+        exploring different technologies and levelling up my practical skills.
+      </p>
+      <p>
+        Beside programming languages, I also like spoken languages. I put my
+        passion for languages into code.
+      </p>
+      <p>
+        All my projects are designed and implemented from ground up. Some are
+        built around languages. Take a look!
+      </p>
+    </div>
+  </div>
+
+  <Projects projects={projects} client:visible />
+</section>
+
+<style>
+  .project-page-container {
+    padding-top: 3em;
+    position: relative;
+  }
+
+  .project-page {
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+
+  p + p {
+    margin-top: 1em;
+  }
+
+  .project-image-container {
+    position: sticky;
+    top: 20%;
+    left: 60%;
+    width: 40vmax;
+    height: 12vmax;
+  }
+
+  .clouds {
+    position: absolute;
+    top: 10%;
+    right: -5vw;
+    width: 100%;
+    height: 250%;
+  }
+
+  .big-cloud {
+    position: absolute;
+    bottom: 10%;
+    width: 80%;
+    max-width: 400px;
+    aspect-ratio: 5 / 3;
+    border-radius: 50%;
+    background-color: rgba(196, 240, 245, 0.3);
+    filter: blur(30px);
+    /* display: none; */
+  }
+
+  .small-cloud {
+    position: absolute;
+    bottom: 30%;
+    right: 0;
+    width: 50%;
+    border-radius: 50%;
+    aspect-ratio: 3 / 2;
+    background: rgba(196, 240, 245, 0.2);
+    filter: blur(25px);
+    rotate: 4deg;
+  }
+
+  .airplane-container {
+    position: absolute;
+    top: -50%;
+    width: 80%;
+    aspect-ratio: 5/3;
+    right: -5vw;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .airplane-container img {
+    translate: 20% 30%;
+  }
+
+  .project-intro-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .project-container {
+    margin: 16vh auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    gap: 3em;
+  }
+
+  @media (min-width: 768px) {
+    .clouds {
+      top: -10%;
+      right: min(-10vw, calc(600px - 50vw));
+      height: 300%;
+    }
+    .big-cloud {
+      bottom: 20%;
+    }
+    .airplane-container {
+      right: min(-10vw, calc(600px - 50vw));
+    }
+    .airplane-container img {
+      translate: 0 30%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .project-image-container {
+      translate: 0 -30%;
+      height: 10vmax;
+    }
+    .clouds {
+      overflow: hidden;
+      top: -30%;
+      height: 350%;
+    }
+    .big-cloud {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const airplane: HTMLImageElement = document.querySelector(
+    ".airplane-container img"
+  )!;
+  const bigCloud: HTMLDivElement = document.querySelector(".big-cloud")!;
+  const sections = document.querySelectorAll("section");
+  const buttonGroups = document.querySelectorAll(".button-group");
+
+  const MAX_ROTATION = 15;
+
+  let rotationDegrees = 0;
+  let baseValue = 0.5;
+  let acceleration = 0;
+
+  const moveAirplane = () => {
+    if (rotationDegrees > 1) {
+      rotationDegrees -= 0.08;
+    } else if (rotationDegrees < 0) {
+      rotationDegrees += 0.08;
+    }
+    rotationDegrees = Math.min(rotationDegrees, MAX_ROTATION * 1);
+    rotationDegrees = Math.max(rotationDegrees, MAX_ROTATION * -1.2);
+    airplane.style.transform = `rotate(${rotationDegrees}deg)`;
+    requestAnimationFrame(moveAirplane);
+  };
+
+  const moveCloud = () => {
+    acceleration = Math.max(0.5, acceleration - 0.03);
+    baseValue = baseValue > 2 ? 0 : baseValue + acceleration * 0.004;
+    const deplacement = Math.max(0, baseValue * baseValue - 0.3);
+    const opacity = -baseValue * baseValue + 2 * baseValue;
+    const scale = baseValue < 1 ? 0.7 : (baseValue - 1) * (baseValue - 1) + 0.7;
+    bigCloud.style.transform = `translateX(${
+      deplacement * 100
+    }px) scale(${scale}) rotate(-2.88deg)`;
+    bigCloud.style.opacity = `${opacity}`;
+    requestAnimationFrame(moveCloud);
+  };
+
+  let previousScrollY = 0;
+
+  const animate = () => {
+    const scrollDirection = previousScrollY ? scrollY - previousScrollY : 0;
+    previousScrollY = scrollY;
+
+    rotationDegrees += scrollDirection * -0.02;
+    acceleration = Math.min(4, acceleration + Math.abs(scrollDirection) * 0.01);
+  };
+
+  if (window.innerWidth > 1023) {
+    moveCloud();
+  }
+
+  moveAirplane();
+
+  const getCurrentSection = () => {
+    let current = "home";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      if (scrollY >= sectionTop - 48) {
+        current = section.getAttribute("id")!;
+      }
+    });
+    return current;
+  };
+
+  const isReduced = window.matchMedia(
+    `(prefers-reduced-motion: reduce)`
+  ).matches;
+
+  window.addEventListener("scroll", () => {
+    const current = getCurrentSection();
+
+    if (current === "projects" && !isReduced) animate();
+  });
+</script>

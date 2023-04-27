@@ -1,0 +1,150 @@
+---
+import HandWave from "../assets/handwave.svg";
+import Stars from "../assets/stars.svg";
+import Photo from "../assets/photo.webp";
+---
+
+<section class="page home-page" id="home">
+  <div class="h1-container">
+    <div class="greeting-container">
+      <h1>Hi!</h1>
+      <div class="h1-icon">
+        <img src={HandWave} alt="handwave" />
+      </div>
+    </div>
+    <h1>I'm Jingxuan.</h1>
+  </div>
+  <div class="intro-container">
+    <div class="intro">
+      <p>
+        I’m a highly motivated web developer. I make responsive and accessible
+        websites using HTML, CSS, JS, React and NextJS.
+      </p>
+      <p>
+        I'm interested in a wide range of web technologies such as serverless
+        functions and WebSockets.
+      </p>
+    </div>
+  </div>
+  <div class="home-image-container">
+    <div class="moon">
+      <img class="stars" src={Stars} alt="" />
+      <div class="photo-container">
+        <img class="photo" src={Photo} alt="a photo of me" />
+        <div class="photo-overlay"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-page {
+    display: grid;
+    grid-template-rows: auto 3fr 4fr;
+  }
+
+  .h1-container {
+    margin: clamp(0.5em, 8vh, 1em) 0;
+    font-size: min(10vw, 4em);
+    color: white;
+  }
+
+  .greeting-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.2em;
+    margin-bottom: 0.3em;
+  }
+
+  .h1-icon {
+    width: min(20vw, 10vh);
+    display: flex;
+    user-select: none;
+  }
+
+  .intro-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .home-image-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .moon {
+    position: relative;
+    translate: 0 -10%;
+    height: min(80%, 60vw);
+    max-height: 450px;
+    aspect-ratio: 1/1;
+    border-radius: 1000px;
+    background: #ffc457;
+    box-shadow: 0px 0px 10px #ffc457;
+  }
+
+  .photo-container {
+    position: absolute;
+    width: 90%;
+    bottom: -0.5em;
+    left: -1em;
+  }
+
+  .photo {
+    width: 100%;
+  }
+
+  .photo-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 34%;
+    background-image: radial-gradient(
+      83.83% 179.77% at 57.79% -71.76%,
+      rgba(62, 58, 51, 0) 1.86%,
+      rgba(62, 58, 51, 0) 86.32%,
+      #3e3a33 100%
+    );
+  }
+
+  .stars {
+    position: absolute;
+    top: -2em;
+    left: 0;
+    translate: -100%;
+    width: 50%;
+  }
+
+  @media (min-width: 1024px) {
+    .home-page {
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: auto 2fr 1fr;
+    }
+    .h1-container {
+      margin: 10vh 0 1em 0;
+    }
+    .h1-container h1 {
+      font-size: min(5vw, 4.5em);
+    }
+    .h1-icon {
+      width: 1.5em;
+    }
+    .intro-container {
+      order: 2;
+    }
+    .home-image-container {
+      grid-row: span 3;
+    }
+    .moon {
+      width: 75%;
+      height: auto;
+      translate: 5vw -5vh;
+    }
+    .stars {
+      left: auto;
+      right: 0;
+      translate: 0 -100%;
+    }
+  }
+</style>
