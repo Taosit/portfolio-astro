@@ -30,7 +30,6 @@ function ProjectCard(props: Project) {
   });
 
   const playVideo = (name: string) => {
-    console.log("playing", name);
     if (!currentVideo) {
       currentVideo = document.querySelector(
         `.${styles[toCamalCase(props.name)]} video`

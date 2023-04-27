@@ -247,6 +247,7 @@
 @media (min-width: 1024px) {
   .projectsContainer {
     width: 80%;
+    padding-bottom: 8rem;
   }
   .projectDescription p {
     font-size: 14px;

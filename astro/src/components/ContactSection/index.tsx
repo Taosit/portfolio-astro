@@ -42,7 +42,7 @@ export function ContactSection() {
         }}
       >
         <img src={Success} alt="success" />
-        <p class={styles.successText}></p>
+        <p class={styles.successText}>The message was sent successfully.</p>
       </div>
       <div
         classList={{
@@ -51,7 +51,7 @@ export function ContactSection() {
         }}
       >
         <img src={Error} alt="error" />
-        <p class={styles.failureText}></p>
+        <p class={styles.failureText}>The message failed to send.</p>
       </div>
       <div class={styles.topStarContainer}>
         <div class={`${styles.star} ${styles.greenStar}`}></div>
@@ -147,10 +147,8 @@ function ContactForm(props: ContactFormProps) {
         setShowFormError(initialFormError);
       })
       .catch((response) => {
-        response.json().then((data: any) => {
-          props.showFailurePopup();
-          console.log(data);
-        });
+        props.showFailurePopup();
+        console.log(response);
       });
   };
 

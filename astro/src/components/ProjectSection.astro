@@ -41,6 +41,7 @@ const projects = await getProjects();
   </div>
 
   <Projects projects={projects} client:visible />
+  <div class="page-bottom-overlay"></div>
 </section>
 
 <style>
@@ -83,7 +84,6 @@ const projects = await getProjects();
     border-radius: 50%;
     background-color: rgba(196, 240, 245, 0.3);
     filter: blur(30px);
-    /* display: none; */
   }
 
   .small-cloud {
@@ -125,6 +125,15 @@ const projects = await getProjects();
     gap: 3em;
   }
 
+  .page-bottom-overlay {
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+    translate: 5vw;
+    height: 4rem;
+    background-image: linear-gradient(#3e3a3300, #3e3a33);
+  }
+
   @media (min-width: 768px) {
     .clouds {
       top: -10%;
@@ -140,6 +149,9 @@ const projects = await getProjects();
     .airplane-container img {
       translate: 0 30%;
     }
+    .page-bottom-overlay {
+      translate: 10vw;
+    }
   }
 
   @media (min-width: 1024px) {
@@ -154,6 +166,10 @@ const projects = await getProjects();
     }
     .big-cloud {
       width: 100%;
+    }
+    .page-bottom-overlay {
+      height: 8rem;
+      translate: max(10vw, calc(50vw - 600px));
     }
   }
 </style>
