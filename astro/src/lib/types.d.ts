@@ -1,4 +1,4 @@
-export interface Project {
+type Project = {
   name: string;
   order: number;
   description: string;
@@ -10,4 +10,26 @@ export interface Project {
     name: string;
     url: string;
   }[];
-}
+};
+
+type TranslatedProject = {
+  name: string;
+  order: number;
+  description: {
+    en: string;
+    fr: string;
+  };
+  technologies: string[];
+  url: string;
+  github: string;
+  imageUrl: string;
+  videos: {
+    name: {
+      en: string;
+      fr: string;
+    };
+    url: string;
+  }[];
+};
+
+declare module "translate-google";

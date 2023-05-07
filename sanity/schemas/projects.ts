@@ -25,7 +25,7 @@ export default {
       type: 'text',
       title: 'Description',
       validation: (Rule: any) =>
-        Rule.min(200).max(300).warning(`The description shouldn't be more than 300 characters.`),
+        Rule.min(180).max(250).warning(`The description should be between 180 and 250 characters.`),
     },
     {
       name: 'technologies',

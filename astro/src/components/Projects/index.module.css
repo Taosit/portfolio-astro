@@ -267,6 +267,12 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .projectDescription p {
+    font-size: 16px;
+  }
+}
+
 @container info-container (width > 320px) {
   .projectInfo {
     flex-direction: row;

@@ -1,22 +1,34 @@
 import { createSignal, For, onMount, Show } from "solid-js";
-import type { Project } from "../../lib/types";
 import Play from "../../assets/play-button.svg";
 import Pause from "../../assets/pause-button.svg";
 import GitHub from "../../assets/github.svg";
 import Link from "../../assets/link.svg";
 import styles from "./index.module.css";
 
-export function Projects(props: { projects: Project[] }) {
+export function Projects(props: { projects: TranslatedProject[] }) {
+  const [language, setLanguage] = createSignal<"en" | "fr">("en");
+  onMount(() => {
+    const language = localStorage.getItem("language");
+    if (language) {
+      setLanguage(language as "en" | "fr");
+      return;
+    }
+    const browserLanguage = window.navigator.language.split("-")[0];
+    if (browserLanguage === "fr") {
+      setLanguage("fr");
+    } else [setLanguage("en")];
+  });
+
   return (
     <div class={styles.projectsContainer}>
       <For each={props.projects}>
-        {(project) => <ProjectCard {...project} />}
+        {(project) => <ProjectCard {...project} language={language()} />}
       </For>
     </div>
   );
 }
 
-function ProjectCard(props: Project) {
+function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
   const [currentVideoIndex, setCurrentVideoIndex] = createSignal(-1);
   const [isVideoPlaying, setIsVideoPlaying] = createSignal(false);
   const [showPauseButton, setShowPauseButton] = createSignal(false);
@@ -25,7 +37,7 @@ function ProjectCard(props: Project) {
 
   onMount(() => {
     if (props.order === 1) {
-      playVideo(props.videos[0].name);
+      playVideo(props.videos[0].name.en);
     }
   });
 
@@ -38,7 +50,9 @@ function ProjectCard(props: Project) {
         currentVideo.autoplay = true;
       }
     }
-    const videoIndex = props.videos.findIndex((video) => video.name === name);
+    const videoIndex = props.videos.findIndex(
+      (video) => video.name.en === name
+    );
     if (videoIndex === -1) return;
     setCurrentVideoIndex(videoIndex);
     currentVideo.src = props.videos[currentVideoIndex()].url;
@@ -115,7 +129,7 @@ function ProjectCard(props: Project) {
                 if (currentVideo) {
                   currentVideo?.play();
                 } else {
-                  playVideo(props.videos[0].name);
+                  playVideo(props.videos[0].name.en);
                 }
                 setIsVideoPlaying(true);
                 setShowPauseButton(true);
@@ -136,7 +150,7 @@ function ProjectCard(props: Project) {
             />
           </Show>
           <div class={styles.promptContainer}>
-            <p>Click a feature to play</p>
+            <p class="hint-text">Click a feature to play</p>
           </div>
         </div>
         <div class={styles.buttonGroup}>
@@ -146,9 +160,9 @@ function ProjectCard(props: Project) {
                 [styles.featureButton]: true,
                 [styles.active]: currentVideoIndex() === index,
               }}
-              onClick={() => playVideo(name)}
+              onClick={() => playVideo(name.en)}
             >
-              {name}
+              {name[props.language]}
             </button>
           ))}
         </div>
@@ -158,7 +172,7 @@ function ProjectCard(props: Project) {
         <div class={styles.infoContainer}>
           <div class={styles.projectInfo}>
             <div class={styles.projectDescription}>
-              <p>{props.description}</p>
+              <p>{props.description[props.language]}</p>
             </div>
             <ul class={styles.projectSkills}>
               {props.technologies.map((technology) => (
@@ -178,7 +192,7 @@ function ProjectCard(props: Project) {
             <span class={styles.projectIconContainer}>
               <img src={Link} alt="link to project" />
             </span>
-            <p>Link</p>
+            <p class="link-to-projects">Link</p>
           </a>
         </div>
       </div>

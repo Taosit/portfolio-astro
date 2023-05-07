@@ -11,7 +11,7 @@ import { ContactSection } from "../components/ContactSection";
   <main>
     <Home />
     <ProjectSection />
-    <ContactSection client:visible={true} />
+    <ContactSection client:visible />
   </main>
 </Layout>
 
@@ -226,7 +226,7 @@ import { ContactSection } from "../components/ContactSection";
   }
 
   .hidden {
-    display: none;
+    display: none !important;
   }
 
   @media (min-width: 768px) and (orientation: portrait) {

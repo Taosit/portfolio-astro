@@ -3,7 +3,7 @@ import Mail from "../../assets/mail.svg";
 import Success from "../../assets/success.svg";
 import Error from "../../assets/error.svg";
 import Trees from "../../assets/trees.svg";
-import { createMemo, createSignal } from "solid-js";
+import { Show, createMemo, createSignal, onMount } from "solid-js";
 
 export function ContactSection() {
   const [showSuccessMessage, setShowSuccessMessage] = createSignal(false);
@@ -42,7 +42,9 @@ export function ContactSection() {
         }}
       >
         <img src={Success} alt="success" />
-        <p class={styles.successText}>The message was sent successfully.</p>
+        <p class={`message-text ${styles.successText}`}>
+          The message was sent successfully.
+        </p>
       </div>
       <div
         classList={{
@@ -51,7 +53,9 @@ export function ContactSection() {
         }}
       >
         <img src={Error} alt="error" />
-        <p class={styles.failureText}>The message failed to send.</p>
+        <p class={`message-text ${styles.failureText}`}>
+          The message failed to send.
+        </p>
       </div>
       <div class={styles.topStarContainer}>
         <div class={`${styles.star} ${styles.greenStar}`}></div>
@@ -146,9 +150,8 @@ function ContactForm(props: ContactFormProps) {
         setData(initialData);
         setShowFormError(initialFormError);
       })
-      .catch((response) => {
+      .catch(() => {
         props.showFailurePopup();
-        console.log(response);
       });
   };
 
@@ -221,7 +224,7 @@ function ContactForm(props: ContactFormProps) {
         class={styles.sendButton}
         disabled={!!errors().name || !!errors().email || !!errors().message}
       >
-        Submit Form
+        Send
       </button>
     </form>
   );

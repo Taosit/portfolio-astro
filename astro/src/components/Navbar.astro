@@ -1,9 +1,7 @@
----
----
-
 <nav>
+  <button class="language"></button>
   <div class="nav-items">
-    <a href="#" class="nav-item home-link active">Home</a>
+    <a href="#home" class="nav-item home-link active">Home</a>
     <a href="#projects" class="nav-item projects-link">Projects</a>
     <a href="#contact" class="nav-item contact-link">Contact</a>
   </div>
@@ -14,7 +12,7 @@
   </button>
 </nav>
 <div class="nav-collapse">
-  <a class="nav-item-collapse home-link active hidden" href="#">Home</a>
+  <a class="nav-item-collapse home-link active hidden" href="#home">Home</a>
   <hr />
   <a class="nav-item-collapse projects-link hidden" href="#projects">Projects</a
   >
@@ -36,11 +34,20 @@
     box-shadow: 0px 4px 4px rgba(43 41 38 / 0.5);
     display: flex;
     z-index: 10;
+    padding: 0 0.5em !important;
+  }
+
+  .language {
+    background: transparent;
+    color: #e1e1e1;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-style: italic;
   }
 
   .nav-items {
     margin-left: auto;
-    margin-right: 2em;
     display: none;
   }
 
@@ -158,6 +165,12 @@
   }
 
   @media (min-width: 768px) {
+    nav {
+      padding: 0 max(10%, 50vw - 600px) !important;
+    }
+    .language {
+      font-size: 1.5rem;
+    }
     .nav-items {
       display: flex;
       gap: 1.5rem;
@@ -172,6 +185,7 @@
 </style>
 
 <script>
+  const languageButton = document.querySelector(".language")!;
   const hamburger = document.querySelector(".hamburger")!;
   const navCollapsItemContainer = document.querySelector(".nav-collapse")!;
   const navCollopasItems = navCollapsItemContainer.querySelectorAll("a");
@@ -180,10 +194,140 @@
   const navItemContainer = document.querySelector(".nav-items")!;
   const navItems = navItemContainer.querySelectorAll("a");
 
+  // ------ translation purpose ------
+  const h1s = document.querySelectorAll("h1");
+  const h2s = document.querySelectorAll("h2");
+  const intros = document.querySelectorAll(".intro");
+  const hints = document.querySelectorAll(".hint-text");
+  const links = document.querySelectorAll(".link-to-projects");
+  const labels = document.querySelectorAll("form label");
+  const submitButton = document.querySelector("button[type='submit']")!;
+  const messages = document.querySelectorAll(".message-text");
+
   let isNavOpen = false;
 
+  const linkTexts = {
+    fr: {
+      home: "Accueil",
+      projects: "Projets",
+      contact: "Contact",
+    },
+    en: {
+      home: "Home",
+      projects: "Projects",
+      contact: "Contact",
+    },
+  };
+
+  const h1Texts = {
+    fr: ["Salut", "Je suis Jingxuan"],
+    en: ["Hi", "I'm Jingxuan"]
+  };
+
+  const h2Texts = {
+    fr: ["Mes projets", "Contactez-moi"],
+    en: ["My projects", "Contact me"]
+  }
+
+  const introTexts = {
+    en: [["I’m a highly motivated web developer. I make responsive and accessible websites using HTML, CSS, JS, React and NextJS.", 
+    "I'm interested in a wide range of web technologies such as serverless functions and WebSockets."],
+    ["I love building projects. I jump from one project to another while exploring different technologies and levelling up my practical skills.",
+    "Beside programming languages, I also like spoken languages. I put my passion for languages into code.",
+    "All my projects are designed and implemented from ground up. Some are built around languages. Take a look!"]],
+    fr: [["Je suis une développeure web très motivée. Je crée des sites web réactifs et accessibles en utilisant HTML, CSS, JS, React et NextJS.",
+    "Je m'intéresse à un large éventail de technologies web telles que les fonctions serverless et les WebSockets."],
+    ["J'adore créer des projets. Je passe d'un projet à l'autre tout en explorant différentes technologies et en améliorant mes compétences pratiques.",
+    "Outre les langages de programmation, j'aime aussi les langues parlées. Je mets ma passion pour les langues dans le code.",
+    "Tous mes projets sont conçus et implémentés à partir de zéro. Certains sont construits autour des langues. Venez voir!"]]
+  }
+
+  const hintText = {
+    en: "Click a feature to play",
+    fr: "Cliquez sur une fonctionnalité"
+  }
+
+  const linkText = {
+    en: "link",
+    fr: "lien"
+  }
+
+  const labelTexts = {
+    en: ["Name", "Email", "Message"],
+    fr: ["Nom", "Email", "Message"]
+  }
+
+  const buttonText = {
+    en: "Send",
+    fr: "Envoyer"
+  }
+
+  const messageTexts = {
+    en: ["Message sent successfully", "Message failed to send"],
+    fr: ["Message envoyé avec succès", "Échec de l'envoi du message"]
+  }
+
+  const setContentInLanguage = (language: "en" | "fr") => {
+    languageButton.textContent = language === "fr" ? "English": "Français";
+    navItems.forEach((item) => {
+      item.textContent = linkTexts[language][item.getAttribute("href")!.slice(1) as keyof typeof linkTexts.en];
+    });
+    navCollopasItems.forEach((item) => {
+      item.textContent = linkTexts[language][item.getAttribute("href")!.slice(1) as keyof typeof linkTexts.en];
+    });
+    h1s.forEach((h1, i) => {
+      h1.textContent = h1Texts[language][i];
+    });
+    h2s.forEach((h2, i) => {
+      h2.textContent = h2Texts[language][i];
+    });
+    intros.forEach((intro, i) => {
+      intro.querySelectorAll("p").forEach((p, j) => {
+        p.textContent = introTexts[language][i][j];
+      });
+    });
+    hints.forEach((hint) => {
+      hint.textContent = hintText[language];
+    });
+    links.forEach(link => {
+      link.textContent = linkText[language]
+    })
+    labels.forEach((label, i) => {
+      label.textContent = labelTexts[language][i]
+    })
+    submitButton.textContent = buttonText[language];
+    messages.forEach((message, i) => {
+      message.textContent = messageTexts[language][i];
+    });
+  };
+
+  const getPreferredLanguage = () => {
+    const language = localStorage.getItem("language");
+    if (language) return language as "en" | "fr";
+    const browserLanguage = window.navigator.language.split("-")[0];
+    if (browserLanguage === "fr") return "fr";
+    return "en";
+  }
+
+  const getLanguageAndSetContent = () => {
+    const language = getPreferredLanguage();
+    setContentInLanguage(language);
+  };
+
+  getLanguageAndSetContent();
+
+  languageButton.addEventListener("click", () => {
+    const newLanguage = languageButton.textContent === "Français" ? "fr" : "en";
+    localStorage.setItem("language", newLanguage);
+    // setContentInLanguage(newLanguage);
+    location.reload();
+  });
+
+  // window.addEventListener("storage", (e) => {
+  //   console.log(JSON.parse(window.localStorage.getItem("language")));
+  // });
+
   const showNav = () => {
-    console.log("show");
     navCollapsItemContainer.ariaHidden = "false";
     navCollopasItems.forEach((item) => {
       item.classList.remove("hidden");
