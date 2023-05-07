@@ -46,16 +46,28 @@ export async function getProjects() {
   translatedProjects[0].description.fr =
     translatedProjects[0].description.fr.replace(
       "Il prend en charge les séances de jeu simulées. ",
-      "Il supporte les séances de jeu simultanées. "
+      "Il permet des sessions de jeu simultanées. "
+    );
+  translatedProjects[0].description.fr =
+    translatedProjects[0].description.fr.replace(
+      "donner des notes",
+      "évaluer les réponses des autres joueurs"
     );
   translatedProjects[1].description.fr =
     translatedProjects[1].description.fr.replace("sans main", "main libre");
   translatedProjects[2].description.fr =
-    translatedProjects[2].description.fr.replace("entre", "enté par");
+    translatedProjects[2].description.fr.replace("de mandarin", "en mandarin");
+  translatedProjects[2].description.fr =
+    translatedProjects[2].description.fr.replace("entre", "fourni par");
   translatedProjects[2].description.fr =
     translatedProjects[2].description.fr.replace(
       "la sortie sous forme de PDF",
       "le PDF"
+    );
+  translatedProjects[3].description.fr =
+    translatedProjects[3].description.fr.replace(
+      "l'emplacement",
+      "leurs régions"
     );
 
   return translatedProjects
