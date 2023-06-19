@@ -22,10 +22,20 @@ export default {
     },
     {
       name: 'description',
-      type: 'text',
+      type: 'object',
       title: 'Description',
-      validation: (Rule: any) =>
-        Rule.min(180).max(250).warning(`The description should be between 180 and 250 characters.`),
+      fields: [
+        {
+          name: 'en',
+          type: 'text',
+          title: 'English',
+        },
+        {
+          name: 'fr',
+          type: 'text',
+          title: 'French',
+        },
+      ],
     },
     {
       name: 'technologies',
@@ -48,7 +58,31 @@ export default {
       name: 'videos',
       title: 'Videos',
       type: 'array',
-      of: [{name: 'video', type: 'file', fields: [{name: 'name', type: 'string', title: 'Name'}]}],
+      of: [
+        {
+          name: 'video',
+          type: 'file',
+          fields: [
+            {
+              name: 'name',
+              type: 'object',
+              title: 'Name',
+              fields: [
+                {
+                  name: 'en',
+                  type: 'string',
+                  title: 'English',
+                },
+                {
+                  name: 'fr',
+                  type: 'string',
+                  title: 'French',
+                },
+              ],
+            },
+          ],
+        },
+      ],
       validation: (Rule: any) => Rule.length(3).warning(`There should be exactly 3 videos.`),
     },
   ],

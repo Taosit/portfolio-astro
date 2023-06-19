@@ -54,17 +54,17 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
       (video) => video.name.en === name
     );
     if (videoIndex === -1) return;
-    setCurrentVideoIndex(videoIndex);
-    currentVideo.src = props.videos[currentVideoIndex()].url;
-    currentVideo
-      ?.play()
-      .then(() => {
-        currentVideo!.currentTime = 0;
-        setIsVideoPlaying(true);
-      })
-      .catch((err) => {
-        console.log({ err });
-      });
+    const newVideo = document.createElement("video");
+    newVideo.src = props.videos[videoIndex].url;
+    newVideo.muted = true;
+    newVideo.onloadeddata = async () => {
+      currentVideo!.src = newVideo.src;
+      currentVideo!.currentTime = 0;
+      await currentVideo!.play();
+      setIsVideoPlaying(true);
+      setCurrentVideoIndex(videoIndex);
+      newVideo.remove();
+    };
   };
 
   const toCamalCase = (str: string) => {

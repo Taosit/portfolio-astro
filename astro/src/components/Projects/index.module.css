@@ -20,7 +20,11 @@
 }
 
 .lingpal {
-  --hue: 190;
+  --hue: 166;
+}
+
+.jtracker {
+  --hue: 198;
 }
 
 .projectCard {
