@@ -70,10 +70,20 @@
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  width: 5em;
+  width: 6em;
   cursor: pointer;
   z-index: 1;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
 }
+
+.videoButton img {
+  width: 100%;
+  object-fit: contain;
+}
+
 .videoLoader {
   position: absolute;
   top: 50%;

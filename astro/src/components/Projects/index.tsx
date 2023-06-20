@@ -34,6 +34,8 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
   const [showPauseButton, setShowPauseButton] = createSignal(false);
 
   let currentVideo: HTMLVideoElement | null = null;
+  let playButton: HTMLButtonElement | undefined = undefined;
+  let pauseButton: HTMLButtonElement | undefined = undefined;
 
   onMount(() => {
     if (props.order === 1 && !/iPad|iPhone|iPod/.test(navigator.userAgent)) {
@@ -119,13 +121,9 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
             }}
           ></video>
           <Show when={!isVideoPlaying()}>
-            <img
-              role="button"
-              aria-label="play"
-              tabindex="0"
+            <button
               class={styles.videoButton}
-              src={Play}
-              alt="play button"
+              ref={playButton}
               onClick={() => {
                 if (currentVideo) {
                   currentVideo?.play();
@@ -134,21 +132,25 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
                 }
                 setIsVideoPlaying(true);
                 setShowPauseButton(true);
+                pauseButton?.focus();
               }}
-            />
+            >
+              <img src={Play} alt="play button" />
+            </button>
           </Show>
           <Show when={showPauseButton()}>
-            <img
-              role="button"
-              aria-label="pause"
-              tabindex="0"
+            <button
               class={styles.videoButton}
-              src={Pause}
-              alt="pause button"
+              ref={pauseButton}
               onClick={() => {
                 currentVideo?.pause();
+                setTimeout(() => {
+                  playButton?.focus();
+                }, 0);
               }}
-            />
+            >
+              <img src={Pause} alt="pause button" />
+            </button>
           </Show>
           <div class={styles.promptContainer}>
             <p class="hint-text">Click a feature to play</p>
