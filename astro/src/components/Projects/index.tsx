@@ -43,6 +43,7 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
 
   const playVideo = (name: string) => {
     if (!currentVideo) {
+      console.log("current video not found");
       currentVideo = document.querySelector(
         `.${styles[toCamalCase(props.name)]} video`
       ) as HTMLVideoElement;
@@ -57,7 +58,9 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
     const newVideo = document.createElement("video");
     newVideo.src = props.videos[videoIndex].url;
     newVideo.muted = true;
+    newVideo.autoplay = true;
     newVideo.onloadeddata = async () => {
+      console.log("new viedo loaded");
       currentVideo!.src = newVideo.src;
       currentVideo!.currentTime = 0;
       await currentVideo!.play();
