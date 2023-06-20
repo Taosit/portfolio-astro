@@ -36,14 +36,13 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
   let currentVideo: HTMLVideoElement | null = null;
 
   onMount(() => {
-    if (props.order === 1) {
+    if (props.order === 1 && !/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       playVideo(props.videos[0].name.en);
     }
   });
 
   const playVideo = (name: string) => {
     if (!currentVideo) {
-      console.log("current video not found");
       currentVideo = document.querySelector(
         `.${styles[toCamalCase(props.name)]} video`
       ) as HTMLVideoElement;
@@ -60,7 +59,6 @@ function ProjectCard(props: TranslatedProject & { language: "en" | "fr" }) {
     newVideo.muted = true;
     newVideo.autoplay = true;
     newVideo.onloadeddata = async () => {
-      console.log("new viedo loaded");
       currentVideo!.src = newVideo.src;
       currentVideo!.currentTime = 0;
       await currentVideo!.play();
