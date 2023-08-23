@@ -161,6 +161,25 @@
   box-shadow: inset 0 0 8px 1px hsl(var(--hue), 30%, 40%);
 }
 
+@supports (background: oklch(100% 0.15 0)) {
+  .recipear {
+    --hue: 95;
+  }
+  .petHome {
+    --hue: 356;
+  }
+  .projectCard {
+    background: linear-gradient(
+      120.7deg,
+      oklch(85% 0.15 var(--hue)) 51.48%,
+      oklch(70% 0.1 var(--hue)) 88.63%
+    );
+  }
+  .featureButton {
+    color: oklch(80% 0.2 var(--hue));
+  }
+}
+
 .infoHalf {
   container: info-container / inline-size;
   padding: 0 1.5rem;
