@@ -17,6 +17,7 @@ import { ContactSection } from "../components/ContactSection";
 
 <style is:global>
   @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Poppins:wght@400;500;600;700&display=swap");
+  @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Lora:ital,wght@0,400..700;1,400..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
   /* --------------CSS reset-------------- */
 
@@ -165,8 +166,9 @@ import { ContactSection } from "../components/ContactSection";
 
   h1,
   h2 {
-    font-weight: bold;
+    font-weight: 600;
     font-family: Merriweather;
+    /* font-family: "Lora", serif; */
     color: white;
     letter-spacing: 2px;
   }
@@ -188,7 +190,8 @@ import { ContactSection } from "../components/ContactSection";
   li,
   input,
   textarea {
-    font-family: Poppins;
+    /* font-family: Poppins; */
+    font-family: "Afacad Flux", sans-serif;
   }
 
   .page {
@@ -199,16 +202,28 @@ import { ContactSection } from "../components/ContactSection";
   }
 
   .intro {
-    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='30' ry='30' stroke='silver' stroke-width='4' stroke-dasharray='1%2c 7%2c 10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"),
+    /* background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='30' ry='30' stroke='silver' stroke-width='4' stroke-dasharray='1%2c 7%2c 10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"),
       linear-gradient(#3e3a33bd, #3e3a33bd);
-    border-radius: 30px;
+    border-radius: 20px; */
     padding: 1.5em 1.2em;
     line-height: 1.5;
+
+    background: rgba( 99 93 76 / 0.25 );
+    box-shadow: 0 8px 32px 0 rgb(97 93 55 / 37%);
+    backdrop-filter: blur( 4.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 16px;
+    border: 1px solid rgba( 255, 255, 255, 0.1 );
   }
 
   .intro p {
     color: #e1e1e1;
-    font-size: 16px;
+    font-size: 1.2rem;
+    line-height: 1.1;
+  }
+
+  p + p {
+    margin-top: 1em;
   }
 
   .h2-container {

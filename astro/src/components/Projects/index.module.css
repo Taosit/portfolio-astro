@@ -29,17 +29,25 @@
 
 .projectCard {
   container-type: inline-size;
-  background: linear-gradient(
+  /* background: linear-gradient(
     124.7deg,
     hsl(var(--hue), 100%, 75%) 31.48%,
     hsl(var(--hue), 50%, 50%) 88.63%
   );
   border-radius: 2em;
-  box-shadow: 0 0 5px rgba(128, 128, 128, 0.491);
+  box-shadow: 0 0 5px rgba(128, 128, 128, 0.491); */
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 1;
+
+  background: rgba( 99 93 76 / 0.25 );
+  box-shadow: 0 8px 32px 0 rgb(97 93 55 / 37%);
+  backdrop-filter: blur( 4.5px );
+  -webkit-backdrop-filter: blur( 4.5px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.1 );
+
 }
 
 .imageHalf {
@@ -131,7 +139,9 @@
 .promptContainer p {
   padding-left: 12px;
   font-size: 18px;
-  color: rgb(227, 227, 227);
+  /* color: rgb(227, 227, 227); */
+
+  color: white;
 }
 
 .buttonGroup {
@@ -139,20 +149,25 @@
   grid-template-columns: repeat(3, 1fr);
   text-align: center;
   align-items: center;
-  background-color: #3e3a33;
+  /* background-color: #3e3a33; */
+
 }
 
 .featureButton {
   padding: 0.8em 0;
-  border: none;
+  border: 1px solid rgba( 255, 255, 255, 0.10 );
+  border-left: none;
   font-size: 1rem;
   justify-self: stretch;
-  color: hsl(var(--hue), 100%, 40%);
   font-weight: 500;
   letter-spacing: 1px;
   font-family: "Poppins";
-  background-color: #3e3a33;
   cursor: pointer;
+
+  background-color: transparent;
+  backdrop-filter: blur( 4.5px );
+  -webkit-backdrop-filter: blur( 4.5px );
+  /* color: white; */
 }
 
 .featureButton.active {
@@ -168,15 +183,19 @@
   .petHome {
     --hue: 356;
   }
-  .projectCard {
-    background: linear-gradient(
+  .projectName {
+    /* background: linear-gradient(
       120.7deg,
       oklch(85% 0.15 var(--hue)) 51.48%,
       oklch(70% 0.1 var(--hue)) 88.63%
-    );
+    ); */
+    color: oklch(80% 0.2 var(--hue));
   }
   .featureButton {
     color: oklch(80% 0.2 var(--hue));
+  }
+  .projectSkills {
+    background-color: oklch(46.25% 0.02 var(--hue) / 50%)
   }
 }
 
@@ -198,9 +217,9 @@
 .projectName {
   margin-left: auto;
   margin-top: 1rem;
-  font-size: 20px;
-  font-weight: 900;
-  color: #756f69;
+  font-size: 24px;
+  font-weight: 700;
+  /* color: #756f69; */
   text-decoration: underline;
 }
 
@@ -212,25 +231,32 @@
 }
 
 .projectDescription p {
-  color: #464646;
-  font-weight: 500;
-  font-size: 14px;
+  /* color: #464646; */
+  font-weight: 400;
   line-height: 1.3em;
+  color: rgb(225, 225, 225);
 }
 
 .projectSkills {
-  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='gray' stroke-width='4' stroke-dasharray='0%2c 7%2c 6%2c 9' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"),
+  /* background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='gray' stroke-width='4' stroke-dasharray='0%2c 7%2c 6%2c 9' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"),
     linear-gradient(#d9d9d936, #d9d9d936);
-  border-radius: 20px;
+  border-radius: 20px; */
   padding: 0.8em;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5em;
+
+  backdrop-filter: blur( 4.5px );
+  -webkit-backdrop-filter: blur( 4.5px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.08 );
 }
 
 .projectSkills li {
-  color: rgb(62, 62, 62);
+  /* color: rgb(62, 62, 62); */
   font-weight: 500;
+
+  color: white;
 }
 
 .linkContainer {
@@ -248,6 +274,14 @@
   align-items: center;
   font-weight: 600;
   font-size: 18px;
+  color: rgb(225, 225, 225);
+}
+
+.linkContainer a p {
+  /* color: #464646; */
+  font-weight: 500;
+  font-size: 18px;
+  color: rgb(225, 225, 225);
 }
 
 .projectIconContainer {
@@ -283,9 +317,6 @@
     width: 80%;
     padding-bottom: 8rem;
   }
-  .projectDescription p {
-    font-size: 14px;
-  }
   .projectCard {
     flex-direction: row;
   }
@@ -302,7 +333,7 @@
 
 @media (min-width: 1280px) {
   .projectDescription p {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
@@ -320,13 +351,12 @@
 
 @container info-container (width > 350px) {
   .project-description p {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
 @container info-container (width > 375px) {
   .project-description p {
-    font-size: 16px;
     line-height: 1.5;
   }
 }
